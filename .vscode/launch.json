@@ -1,0 +1,68 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch print_temp_regs",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/print_temp_regs",
+        },
+        {
+            "name": "Launch sys_write_macos_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_write_macos_successful",
+        },
+        {
+            "name": "Launch sys_write_macos_fail",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_write_macos_fail",
+        },
+        {
+            "name": "Launch sys_write_darling_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_write_darling_successful",
+        },
+        {
+            "name": "Launch sys_write_darling_fail",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_write_darling_fail",
+        },
+        {
+            "name": "Launch sys_syscall_recvfrom_and_sendto_macos_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_syscall_recvfrom_and_sendto_macos_successful",
+        },
+        {
+            "name": "Launch sys_syscall_recvfrom_and_sendto_darling_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_syscall_recvfrom_and_sendto_darling_successful",
+        },
+        {
+            "name": "Launch generic_syscall_out_of_bounds_macos",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/generic_syscall_out_of_bounds_macos",
+        },
+        {
+            "name": "Launch sys_pipe_macos_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_pipe_macos_successful",
+        },
+        {
+            "name": "Launch sys_pipe_darling_successful",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/test/sys_pipe_darling_successful",
+        },
+    ]
+}

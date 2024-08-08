@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "syscall_table.h": "c",
+        "types.h": "c",
+        "syscall_function.h": "c",
+        "stdint.h": "c",
+        "errno.h": "c"
+    },
+    "cmake.configureOnOpen": true
+}
