@@ -4,7 +4,9 @@
         "types.h": "c",
         "syscall_function.h": "c",
         "stdint.h": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "linux-arm64.h": "c",
+        "linux-x86_64.h": "c"
     },
     "cmake.configureOnOpen": true
 }

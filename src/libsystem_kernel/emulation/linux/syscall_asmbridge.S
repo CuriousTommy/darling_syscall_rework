@@ -25,7 +25,11 @@ ___darling_handle_x86_64_syscall:
 
     // Call _darling_handle_x86_64_syscall(stack_pointer);
     mov %rsp, %rdi
+#if defined(__APPLE__)
     call __darling_handle_x86_64_syscall
+#else
+    call _darling_handle_x86_64_syscall
+#endif
 
     // Restore temporary registers (includes updated return values)
     pop %rax

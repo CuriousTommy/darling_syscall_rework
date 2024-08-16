@@ -19,7 +19,7 @@ int sys_write(const darling_syscall_args_t* args, darling_syscall_retarg_t* reta
 int sys_write_nocancel(const darling_syscall_args_t* args, darling_syscall_retarg_t* retargs)
 {
 	retargs->result_type = DARLING_SYSCALL_RETARG_TYPE_SSIZE_T;
-	darling_syscall_ssize_t *ret = (darling_syscall_ssize_t*)&retargs->result[0];
+	darling_syscall_ssize_t ret;
 
 	int fd = (int)args->arg[0];
 	const void* mem = (void*)args->arg[1];
@@ -27,18 +27,19 @@ int sys_write_nocancel(const darling_syscall_args_t* args, darling_syscall_retar
 
 #if defined(__linux__)
 	// TODO: Verify for linux build
-	*ret = LINUX_SYSCALL3(__NR_write, fd, mem, len);
-	if (*ret < 0)
+	ret = LINUX_SYSCALL3(__NR_write, fd, mem, len);
+	if (ret < 0)
 		return errno_linux_to_bsd(ret);
 #elif defined(__APPLE__)	
-	*ret = write(fd,mem,len);
-	if (*ret < 0) {
+	ret = write(fd,mem,len);
+	if (ret < 0) {
 		return errno;
 	}
 #else
 #error "Missing implementation"
 #endif
 
+	*((darling_syscall_ssize_t*)&retargs->result[0]) = ret;
 	return 0;
 }
 

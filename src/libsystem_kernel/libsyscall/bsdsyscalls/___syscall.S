@@ -88,8 +88,13 @@ MI_ENTRY_POINT(___syscall)
 #endif
 
 #if defined(__x86_64__)
+#if defined(__APPLE__)
 	.globl	_darling_syscall
 	.set	_darling_syscall, ___darling_syscall
+#else
+	.globl	darling_syscall
+	.set	darling_syscall, ___darling_syscall
+#endif
 #endif
 
 #if defined(__ppc__)

@@ -102,7 +102,7 @@ int errno_linux_to_bsd(int err)
 	if ((v < length_of_translation_array) && (linux_to_darwin[v]))
 	{
 		v = linux_to_darwin[v];
-		return (err < 0) ? -v : v;
+		return (v < 0) ? -v : v;
 	}
 
 	return err;

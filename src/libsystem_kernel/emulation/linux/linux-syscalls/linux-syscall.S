@@ -1,8 +1,14 @@
 .text
+#if defined(__APPLE__)
 .globl _linux_syscall
 .private_extern _linux_syscall
 
 _linux_syscall:
+#else
+.globl linux_syscall
+
+linux_syscall:
+#endif
 
 #if defined(__x86_64__)
 

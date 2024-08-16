@@ -27,7 +27,6 @@ int sys_recvfrom(const struct darling_syscall_args* args, struct darling_syscall
 int sys_recvfrom_nocancel(const struct darling_syscall_args* args, struct darling_syscall_retarg* retargs)
 {
 	retargs->result_type = DARLING_SYSCALL_RETARG_TYPE_INT_T;
-	int* ret = &retargs->result[0];
 
 	int fd = (int)args->arg[0];
 	void* buf = (void*)args->arg[1];
@@ -52,7 +51,7 @@ int sys_recvfrom_nocancel(const struct darling_syscall_args* args, struct darlin
 #endif
 
 	if (ret < 0)
-		ret = errno_linux_to_bsd(ret);
+		return errno_linux_to_bsd(ret);
 	else if (from != NULL)
 	{
 		fixed = (struct sockaddr_fixup*) from;
@@ -60,16 +59,15 @@ int sys_recvfrom_nocancel(const struct darling_syscall_args* args, struct darlin
 			ret = *socklen;
 	}
 
-	return ret;
-
 #elif defined(__APPLE__)
-	ssize_t result = recvfrom(fd, buf, (size_t)len, flags, (struct sockaddr*)from, (socklen_t*)socklen);
-	if (result < 0) {
+	ssize_t ret;
+	ret = recvfrom(fd, buf, (size_t)len, flags, (struct sockaddr*)from, (socklen_t*)socklen);
+	if (ret < 0) {
 		return errno;
 	}
-
-	*ret = result;
-	return 0;
 #endif
+
+	retargs->result[0] = ret;
+	return 0;
 }
 

@@ -144,6 +144,7 @@ LEAF(pseudo, 0)					;\
         syscall
 #endif
 
+#if defined(__APPLE__)
 #define UNIX_SYSCALL(name, nargs)                                                \
         .globl  darling_cerror                                                          ;\
 LEAF(_##name, 0)                                                                ;\
@@ -153,7 +154,19 @@ LEAF(_##name, 0)                                                                
         movq    %rax, %rdi                                                      ;\
         BRANCH_EXTERN(_darling_cerror)                                                  ;\
 2:
+#else
+#define UNIX_SYSCALL(name, nargs)                                                \
+        .globl  darling_cerror                                                          ;\
+LEAF(_##name, 0)                                                                ;\
+        movl    $ SYSCALL_CONSTRUCT_UNIX(SYS_##name), %eax                      ;\
+        UNIX_SYSCALL_SYSCALL                                                    ;\
+        jnb             2f                                                      ;\
+        movq    %rax, %rdi                                                      ;\
+        BRANCH_EXTERN(darling_cerror)                                                  ;\
+2:
+#endif
 
+#if defined(__APPLE__)
 #define UNIX_SYSCALL_NONAME(name, nargs, cerror)                 \
         .globl  cerror                                                          ;\
         movl    $ SYSCALL_CONSTRUCT_UNIX(SYS_##name), %eax                      ;\
@@ -162,6 +175,16 @@ LEAF(_##name, 0)                                                                
         movq    %rax, %rdi                                                      ;\
         BRANCH_EXTERN(_##cerror)                                                ;\
 2:
+#else
+#define UNIX_SYSCALL_NONAME(name, nargs, cerror)                 \
+        .globl  cerror                                                          ;\
+        movl    $ SYSCALL_CONSTRUCT_UNIX(SYS_##name), %eax                      ;\
+        UNIX_SYSCALL_SYSCALL                                                    ;\
+        jnb             2f                                                      ;\
+        movq    %rax, %rdi                                                      ;\
+        BRANCH_EXTERN(cerror)                                                ;\
+2:
+#endif
 
 #define PSEUDO(pseudo, name, nargs, cerror)			\
 LEAF(pseudo, 0)					;\

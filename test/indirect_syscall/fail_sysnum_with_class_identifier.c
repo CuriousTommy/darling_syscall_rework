@@ -16,9 +16,15 @@ extern int darling_syscall(int, ...);
 int main() {
     darling_set_cerror(0);
 
+#if defined(__APPLE__)
     struct sigaction sigaction_struct = {0};
     sigaction_struct.__sigaction_u.__sa_handler = sigsys_handler;
     sigaction(SIGSYS, &sigaction_struct, NULL);
+#else
+    struct sigaction sigaction_struct = {0};
+    sigaction_struct.sa_handler = sigsys_handler;
+    sigaction(SIGSYS, &sigaction_struct, NULL);
+#endif
 
     int fd = 1;
     const char* hello_world_str = "Hello World!\n"; 

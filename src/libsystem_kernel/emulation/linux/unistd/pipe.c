@@ -18,19 +18,14 @@ int sys_pipe(const darling_syscall_args_t* args, darling_syscall_retarg_t* retar
 
 #if defined(__linux__)
 	#if defined(__NR_pipe)
-		ret = LINUX_SYSCALL(__NR_pipe, fd);
+		err = LINUX_SYSCALL(__NR_pipe, fd);
 	#else
-		ret = LINUX_SYSCALL(__NR_pipe2, fd, 0);
+		err = LINUX_SYSCALL(__NR_pipe2, fd, 0);
 	#endif
-	if (ret < 0)
-		return errno_linux_to_bsd(ret);
 
-#if defined(__i386__) || defined(__x86_64__)
-	__asm__ __volatile__("movl %0, %%edx" :: "m"(fd[1]) : "edx");
-#else
-#	warning Missing assembly!
-#endif
-	return fd[0];
+	if (err < 0)
+		return errno_linux_to_bsd(err);
+
 #elif defined(__APPLE__)
 	err = pipe(fd);
 	if (err < 0) {

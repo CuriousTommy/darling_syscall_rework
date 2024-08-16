@@ -12,7 +12,11 @@ SYSCALL_NONAME(write, 3, darling_cerror)
 ret
 #else
 #if defined(__arm64__) || defined(__x86_64__)
+#if defined(__APPLE__)
 __SYSCALL2(_darling_write, write, 3, darling_cerror)
+#else
+__SYSCALL2(darling_write, write, 3, darling_cerror)
+#endif
 #else
 __SYSCALL2(___darling_write, write, 3, darling_cerror)
 #endif

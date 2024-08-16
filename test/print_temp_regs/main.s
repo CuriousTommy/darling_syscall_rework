@@ -1,8 +1,13 @@
 .data
 
 .text
+#if defined(__APPLE__)
 .globl _main
 _main:
+#else
+.globl main
+main:
+#endif
     push %rbp
     mov %rsp, %rbp
 

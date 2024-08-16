@@ -8,3 +8,6 @@ add_library(libsyscall
 
     custom/errno.c
 )
+
+# Needed for Linux
+target_link_libraries(libsyscall emulation)

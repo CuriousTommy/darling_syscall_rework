@@ -79,8 +79,13 @@ MI_ENTRY_POINT(___pipe)
 #endif
 
 #if defined(__x86_64__)
+#if defined(__APPLE__)
 	.globl	_darling_pipe
 	.set	_darling_pipe, ___darling_pipe
+#else
+	.globl	darling_pipe
+	.set	darling_pipe, ___darling_pipe
+#endif
 #endif
 
 #if defined(__ppc__)

@@ -11,7 +11,9 @@
 #include <unistd.h>
 
 extern int darling_syscall(int, ...);
+#ifdef __APPLE__
 extern int syscall(int,...);
+#endif
 
 extern void darling_set_cerror(int err);
 extern int darling_get_cerror();
@@ -81,8 +83,11 @@ void* server_thread(void* args) {
     assert(strcmp(expected_client_message, buffer) == 0);
 
     const char* server_message = "[Server] Sent message to client";
-    sendto(server_fd, server_message, strlen(server_message), 0,
-        (const struct sockaddr*)&client_address_details, len);
+    if (sendto(server_fd, server_message, strlen(server_message), 0,
+            (const struct sockaddr*)&client_address_details, len) < 0) {
+        perror("Failed to send message");
+        exit(1);
+    }
 
     assert(darling_get_cerror() == 0);
     return NULL;

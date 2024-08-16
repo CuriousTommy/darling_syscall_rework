@@ -37,6 +37,7 @@ int _darling_handle_x86_64_syscall(darling_register_x86_64_t* regs) {
     printf("regs->r9 = %llu\n", regs->r9);
     printf("regs->r10 = %llu\n", regs->r10);
     printf("regs->r11 = %llu\n", regs->r11);
+    printf("regs->rflag = %llu\n", regs->rflag);
     printf("regs->rsp = %llu\n", regs->rsp);
     printf("regs->rbp = %llu\n", regs->rbp);
 

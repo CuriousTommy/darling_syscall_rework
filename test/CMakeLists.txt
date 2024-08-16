@@ -58,7 +58,7 @@ add_executable(sys_syscall_sysnum_with_class_identifier_darling_fail indirect_sy
 add_executable(sys_syscall_recvfrom_and_sendto_darling_successful indirect_syscall/successful_recvfrom_and_sendto.c)
 add_executable(generic_syscall_out_of_bounds_darling_fail 
     generic_syscall/fail_out_of_bound_unix_syscall.c
-    generic_syscall/asm_out_of_bounds_unix_darling.s
+    generic_syscall/asm_out_of_bounds_unix_darling.S
 )
 add_executable(sys_pipe_darling_successful sys_pipe/sucessful_run.c)
 
