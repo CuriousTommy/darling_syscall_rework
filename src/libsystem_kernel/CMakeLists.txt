@@ -1,6 +1,6 @@
 project(darling-libsystem_kernel)
 
-add_subdirectory(emulation/linux)
+add_subdirectory(emulation)
 add_subdirectory(libsyscall)
 
 add_library(system_kernel stub.c)
